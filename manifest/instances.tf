@@ -1,6 +1,6 @@
 # INSTANCE
 resource "aws_instance" "node_instances" {
-  count = 2
+  count = 3
 
   ami                    = data.aws_ami.aws-linux.id
   instance_type          = var.environment_instance_settings["PROD"].instance_type
