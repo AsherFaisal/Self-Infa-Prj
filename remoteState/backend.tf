@@ -21,8 +21,8 @@ provider "aws" {
 # //////////////////////////////
 # TERRAFORM USER
 # //////////////////////////////
-data "aws_iam_user" "terraform" {
-  user_name = "terraform"
+data "aws_iam_user" "Infa" {
+  user_name = "Infa"
 }
 
 resource "aws_s3_bucket" "tfRemoteState" {
