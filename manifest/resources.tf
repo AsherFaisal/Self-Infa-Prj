@@ -35,3 +35,8 @@ resource "aws_route_table_association" "route-subnet1" {
   subnet_id      = aws_subnet.subnet1.id
   route_table_id = aws_route_table.route_table1.id
 }
+
+#resource "aws_key_pair" "deployMe" {
+#  public_key = file("~/.ssh/id_rsa.pub")
+#}
+
