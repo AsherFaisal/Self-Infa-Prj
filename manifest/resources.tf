@@ -6,11 +6,20 @@
 resource "aws_vpc" "vpc1" {
   cidr_block           = var.vpc_cidr
   enable_dns_hostnames = "true"
+  tags = {
+    Name = "BookStore"
+  }
 }
 
 # SUBNET
-resource "aws_subnet" "subnet1" {
-  cidr_block              = var.subnet1_cidr
+resource "aws_subnet" "subnet_private" {
+  cidr_block              = var.subnet_private_cidr
+  vpc_id                  = aws_vpc.vpc1.id
+  map_public_ip_on_launch = "true"
+  availability_zone       = data.aws_availability_zones.available.names[1]
+}
+resource "aws_subnet" "subnet_public" {
+  cidr_block              = var.subnet_public_cidr
   vpc_id                  = aws_vpc.vpc1.id
   map_public_ip_on_launch = "true"
   availability_zone       = data.aws_availability_zones.available.names[1]
@@ -31,8 +40,8 @@ resource "aws_route_table" "route_table1" {
   }
 }
 
-resource "aws_route_table_association" "route-subnet1" {
-  subnet_id      = aws_subnet.subnet1.id
+resource "aws_route_table_association" "route_subnet_public" {
+  subnet_id      = aws_subnet.subnet_public.id
   route_table_id = aws_route_table.route_table1.id
 }
 
