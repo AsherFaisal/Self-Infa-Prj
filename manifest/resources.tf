@@ -44,27 +44,3 @@ resource "aws_route_table_association" "route_subnet_public" {
   subnet_id      = aws_subnet.subnet_public.id
   route_table_id = aws_route_table.route_table1.id
 }
-
-
-
-resource "aws_eip" "eip_1" {
-  vpc = true
-  tags = {
-    Name = "Public EIP"
-  }
-
-}
-
-#NAT_GATEWAY FOR PUBLIC ACCESS
-resource "aws_nat_gateway" "nat_public" {
-  allocation_id = aws_eip.eip_1.id
-  subnet_id     = aws_subnet.subnet_public.id
-
-  tags = {
-    Name = "public NAT"
-  }
-
-  # To ensure proper ordering, it is recommended to add an explicit dependency
-  # on the Internet Gateway for the VPC.
-  depends_on = [aws_internet_gateway.gateway1]
-}
