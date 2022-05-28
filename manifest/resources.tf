@@ -45,7 +45,6 @@ resource "aws_route_table_association" "route_subnet_public" {
   route_table_id = aws_route_table.route_table1.id
 }
 
-
 #ELASTIC_IP FOR PUBLIC NAT
 resource "aws_eip" "eip_1" {
   vpc = true
@@ -68,3 +67,4 @@ resource "aws_nat_gateway" "nat_public" {
   # on the Internet Gateway for the VPC.
   depends_on = [aws_internet_gateway.gateway1]
 }
+
